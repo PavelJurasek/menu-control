@@ -30,6 +30,15 @@ final class MenuExtensionTest extends AbstractTestCase
 		Assert::type(MenuContainer::class, $dic->getService('menu.container'));
 		Assert::type(MenuComponentFactory::class, $dic->getService('menu.component.factory'));
 		Assert::type(MenuComponent::class, $dic->getService('menu.component.factory')->create('default'));
+
+		$container = $dic->getService('menu.container');
+		/** @var \Contributte\MenuControl\IMenu $menu */
+		$menu = $container->getMenu('default');
+
+		$item = $menu->getItem('Homepage');
+
+		Assert::type('string', $item->getDataItem('icon'));
+		Assert::type('array', $item->getDataItem('structured'));
 	}
 
 	public function testRender(): void
